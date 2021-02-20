@@ -1,0 +1,17 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: small;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    flex-direction: row;
+
+}
