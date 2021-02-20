@@ -1,6 +1,37 @@
 //variables
+var highScores = [];
+
+var questionNumber = 0;
+
+var secondsLeft = 0;
+
+var timer;
 
 //object to contain questions and answers
+var qAndA = [
+
+    {
+        question: "Commonly used data types DO NOT include: ",
+        choice: ["strings", "booleans", "alerts", "numbers"],
+        answer: 3
+    }
+
+    {
+        question: 
+    }
+
+    {
+        question:
+    }
+
+    {
+        question: 
+    }
+
+    {
+        question: 
+    }
+];
 
 //startQuiz function
 
