@@ -34,21 +34,29 @@
             </div>
 
             <!-- question and answer container -->
-            <div>
+            <div id="QuizQ">
                 <!--question h1 element-->
                 <h1 id="question"></h1>
                 <!-- answers <ul> and button elements-->
                 <ul id="answers">
-
+                    <li><button data-index="0"></button></li>
+                    <li><button data-index="1"></button></li>
+                    <li><button data-index="2"></button></li>
+                    <li><button data-index="3"></button></li>
                 </ul>
             </div>
             
             <!-- quiz finish page -->
             <div>
                 <!-- display finish text -->
-                You finished the test!
+                <h1>You finished the test!</h1>
+                <p>Your final score is <span id="score"></span></p>
                 <!-- input initials and save score-->
-                <input>
+                <div>
+                    <label for="playerInitials">Enter Initials: </label>
+                    <input type="text" id="playerInitials">
+                    <button id="playerInitialsButton" type="button">Submit</button>
+                </div>
             </div>
 
             <!-- answer status -->
@@ -61,8 +69,9 @@
                 <!-- display highscore information -->
                 <h1>HighScores</h1>
                 <!-- buttons for go back, clear highscores-->
-                <button id="#go-back">Go Back</button>
-                <buton id="#clear-highScores">Clear HighScores</buton>
+                <ul id="highScoresList"></ul>
+                <button id="go-back">Go Back</button>
+                <button id="clear-highScores">Clear HighScores</buton>
             </div>
 
         </section> <!-- end quiz container-->
