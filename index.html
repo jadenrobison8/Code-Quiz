@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
-<body>
+<body id="page-content">
     <header>
         <div>
             <div>
@@ -34,7 +34,7 @@
             </div>
 
             <!-- question and answer container -->
-            <div id="QuizQ">
+            <div id="QuizQ" class="hide">
                 <!--question h1 element-->
                 <h1 id="question"></h1>
                 <!-- answers <ul> and button elements-->
@@ -47,7 +47,7 @@
             </div>
             
             <!-- quiz finish page -->
-            <div>
+            <div id="finish-page" class="hide">
                 <!-- display finish text -->
                 <h1>You finished the test!</h1>
                 <p>Your final score is <span id="score"></span></p>
@@ -65,7 +65,7 @@
             </div>
 
             <!--high scores -->
-            <div>
+            <div id="highScores-page" class="hide">
                 <!-- display highscore information -->
                 <h1>HighScores</h1>
                 <!-- buttons for go back, clear highscores-->

@@ -7,6 +7,8 @@ var secondsLeft = 0;
 
 var timer;
 
+pageContentEl = document.querySelector("#page-content");
+
 //object to contain questions and answers
 var qAndA = [
 
@@ -23,15 +25,21 @@ var qAndA = [
     },
 
     {
-        question: ""
+        question: "Arrays in JavaScript can be used to store: ",
+        choice: ["Numbers and Strings", "Other Arrays", "Booleans", "All of the above"],
+        answer: 3 // all of the above
     },
 
     {
-        question: ""
+        question: "String values must be inclosed within _____ when assigned to variables",
+        choice: ["commas", "curly brackets", "quotes", "parenthesis"],
+        answer: 2 //quotes
     },
 
     {
-        question: ""
+        question: "A very useful tool used during development and debugging for printing content to the debugger: ",
+        choice: ["JavaScript", "terminal/bash", "for loops", "console log"],
+        answer: 3 //console log
     }
 ];
 
@@ -39,21 +47,33 @@ var qAndA = [
 var startQuiz = function(event) { 
     event.preventDefault(); 
     // used console.dir(taskNameInput); to find this
-    var startButton = document.querySelector("start-quiz");
-    
-    //if button is clicked, run quiz
-    if (startButton) {
-        showQuestions();
-    }
 
 }; 
 
+//start button handler
+var buttonHandler = function(event) {
+    //console.log(event.target); //console shows what each object is on click
+
+    var targetEl = event.target;
+
+    if (targetEl.matches("#start-quiz")) {
+        //get the elements task id
+        showQuestions();
+    }
+    else if (targetEl.matches("#highScoresLink")) {
+        highScores();
+    }
+    
+};
 
 //loadHighScores function
 
 //answer right/wrong function
 
 //display highscores with list items/highscores array
+var highScores = function() {
+    console.log("highscore");
+};
 
 //save to local storage
 
@@ -91,7 +111,7 @@ var stopTimer = function() {
 
 //show questions
 var showQuestions = function() {
-
+    console.log("hello");
 };
 
 
@@ -101,6 +121,9 @@ var showQuestions = function() {
 //event listeners
 //start quiz
 
+
+//button handler
+pageContentEl.addEventListener("click", buttonHandler);
 
 //hide answer
 
