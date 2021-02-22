@@ -24,7 +24,7 @@
         <!-- quiz container -->
         <section>
             <!--quiz start page-->
-            <div>
+            <div id="start">
                 <h1>Coding Quiz Challenge</h1>
                 <p>Try to answer the following code-related questions within the time limit. <br>
                     Keep in mind that incorrect answers will penalize your score/time <br>
@@ -39,10 +39,10 @@
                 <h1 id="question"></h1>
                 <!-- answers <ul> and button elements-->
                 <ul id="answers">
-                    <li><button data-index="0"></button></li>
-                    <li><button data-index="1"></button></li>
-                    <li><button data-index="2"></button></li>
-                    <li><button data-index="3"></button></li>
+                    <li><button id="b0"></button></li>
+                    <li><button id="b1"></button></li>
+                    <li><button id="b2"></button></li>
+                    <li><button id="b3"></button></li>
                 </ul>
             </div>
             
@@ -60,8 +60,9 @@
             </div>
 
             <!-- answer status -->
-            <div>
-
+            <div class="hide" id="answer">
+                <hr>
+                <p id="answerStatus"></p>
             </div>
 
             <!--high scores -->

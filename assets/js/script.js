@@ -9,6 +9,8 @@ var timer;
 
 pageContentEl = document.querySelector("#page-content");
 
+answerEl = document.querySelector("#answers");
+
 //object to contain questions and answers
 var qAndA = [
 
@@ -45,41 +47,62 @@ var qAndA = [
 
 //startQuiz function
 var startQuiz = function(event) { 
-    event.preventDefault(); 
+    //event.preventDefault(); 
     // used console.dir(taskNameInput); to find this
 
+    //show questions on page, hide opening page
+    var element = document.getElementById("start");
+    element.classList.add("hide");
+    var element1 = document.getElementById("QuizQ");
+    element1.classList.remove("hide");
+    
+    //start the timer, set the questionNumber to 0 and go to the show questions function
+    startTimer();
+    questionNumber = 0;
+    showQuestions();
 }; 
 
 //start button handler
 var buttonHandler = function(event) {
     //console.log(event.target); //console shows what each object is on click
-
     var targetEl = event.target;
 
     if (targetEl.matches("#start-quiz")) {
         //get the elements task id
-        showQuestions();
+        startQuiz();
     }
     else if (targetEl.matches("#highScoresLink")) {
         highScores();
-    }
-    
+    }    
 };
 
-//loadHighScores function
+//quiz list button handler
+var quizButton = function(event) {
+    var targetEl = event.target
+    var element;
 
-//answer right/wrong function
+    if (targetEl.matches("#b0")) {
+        element = 0;
+    }
+    else if (targetEl.matches("#b1")) {
+        element = 1;
+    }
+    else if (targetEl.matches("#b2")) {
+        element = 2;
+    }
+    else if (targetEl.matches("#b3")) {
+        element =3;
+    }
+
+    //buttonIndex = parseInt(element, 10);
+    console.log(element);
+    checkAnswer(element);
+};
 
 //display highscores with list items/highscores array
 var highScores = function() {
     console.log("highscore");
 };
-
-//save to local storage
-
-//show quiz start page
-
-//clear high scores
 
 //set timer
 var setTimer = function () {
@@ -103,7 +126,6 @@ var startTimer = function() {
     }, 1000);
 };
 
-
 //clear timer
 var stopTimer = function() {
     clearInterval(timerInterval);
@@ -111,28 +133,76 @@ var stopTimer = function() {
 
 //show questions
 var showQuestions = function() {
-    console.log("hello");
+    
+    if (questionNumber != qAndA.length) {
+
+        //get question from quiz object
+        var question = qAndA[questionNumber].question;
+        document.getElementById("question").innerHTML = question;
+        var element1 = document.getElementById("answer");
+        element1.classList.add("hide");
+        
+        var choices = qAndA[questionNumber].choice;
+
+        for (var i = 0; i < choices.length; i++) {
+            var counter = i + 1;
+            document.getElementById("b"+i).innerHTML = choices[i]
+        }
+        //onClick="this.disabled=true; this.value='Sending…'";
+    }
+    else {
+        stopTimer();
+
+        //hide the questions
+        var element1 = document.getElementById("QuizQ");
+        element1.classList.add("hide");
+
+        //show finish page
+        var element = document.getElementById("finish-page");
+        element.classList.remove("hide");
+
+        //show the last answer
+        var element1 = document.getElementById("answer");
+        element1.classList.remove("hide");
+
+        //set score
+
+        questionNumber = 0;
+    }
+
 };
 
+var checkAnswer = function(buttonIndex) {
+    if (questionNumber < qAndA.length) {
 
-// compare user choice to answer
+        var answer = qAndA[questionNumber].answer; //get answer
 
+        console.log("Question: " + questionNumber + ", answer: " + answer + ", buttonIndex: " + buttonIndex);
 
-//event listeners
-//start quiz
+        if (answer === buttonIndex) {
+            document.getElementById("answerStatus").innerHTML = "correct";
+        }
+        else {
+            document.getElementById("answerStatus").innerHTML ="wrong";
+            if (secondsLeft >= 10) {
+                secondsLeft -= 10;
+            }
+        }
+        
+        questionNumber++;
+        var element1 = document.getElementById("answer");
+        element1.classList.remove("hide");
 
+        setTimeout(() => {
+            showQuestions();
+        }, 1500);
+    }
+};
 
 //button handler
 pageContentEl.addEventListener("click", buttonHandler);
 
-//hide answer
-
-//highscore click
-
-//start over button
-
-//clear highscores button
-
-//player initials submit button
+//quiz answers
+answerEl.addEventListener("click", quizButton);
 
 setTimer();
