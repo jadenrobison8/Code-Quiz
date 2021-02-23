@@ -1,5 +1,5 @@
 //variables
-var highScores = [];
+let highScores = [];
 
 var questionNumber = 0;
 
@@ -10,6 +10,10 @@ var timer;
 pageContentEl = document.querySelector("#page-content");
 
 answerEl = document.querySelector("#answers");
+
+submitEl = document.querySelector("#playerInitialsButton");
+
+highScoresEl = document.querySelector("#highScoresList");
 
 //object to contain questions and answers
 var qAndA = [
@@ -72,7 +76,7 @@ var buttonHandler = function(event) {
         startQuiz();
     }
     else if (targetEl.matches("#highScoresLink")) {
-        highScores();
+        showHighScores();
     }    
 };
 
@@ -93,15 +97,109 @@ var quizButton = function(event) {
     else if (targetEl.matches("#b3")) {
         element =3;
     }
+    else {
+        alert("pick an answer");
+    }
 
     //buttonIndex = parseInt(element, 10);
     console.log(element);
     checkAnswer(element);
 };
 
-//display highscores with list items/highscores array
-var highScores = function() {
-    console.log("highscore");
+//hide answer
+var hideAnswer = function() {
+    var element1 = document.getElementById("answer");
+    element1.classList.add("hide");
+};
+
+//get the highscores from memory and load them into an array called highScoreArray
+var loadHighScores = function() {
+    var highScoresArray = localStorage.getItem("highScores");
+    console.log(highScoresArray);
+    if (highScoresArray) //if not undefined
+    {
+      highScores = JSON.parse(highScoresArray);  //make sure there is a highscores object
+    }
+    else {
+      localStorage.setItem("highScores", JSON.stringify(highScores));  //if not make one and store it to local storage
+    }
+};
+
+var showHighScores = function (highScores) {
+    var element1 = document.getElementById("header");
+    element1.classList.add("hide");
+
+    var element1 = document.getElementById("QuizQ");
+    element1.classList.add("hide");
+
+    var element1 = document.getElementById("start");
+    element1.classList.add("hide");
+
+    var element1 = document.getElementById("finish-page");
+    element1.classList.add("hide");
+
+    var element1 = document.getElementById("highScores-page");
+    element1.classList.remove("hide");
+
+    //console.log(highScores);
+    //loadHighScores();
+    console.log(highScores);
+
+    for(var i = 0; i < highScores.length; i++) {
+        var counter = i + 1; 
+        var listItemEl = document.createElement("li");
+        listItemEl.innerHTML = counter + ". " + highScores[i].initials + " - " + highScores[i].score; 
+        console.log(highScoresEl);
+        console.log(listItemEl);
+        highScoresEl.appendChild(listItemEl);
+    }
+    setTimer();
+};
+
+//set highscores with list items/highscores array
+var userScore = function() {
+    
+    var playerInitials = document.querySelector("input[id='playerInitials']").value;
+    console.log(playerInitials);
+
+    document.getElementById("timerValue").innerHTML = secondsLeft;
+
+    if (playerInitials !== "") {
+        var score = {
+            initials: playerInitials,
+            score: secondsLeft
+        }
+
+        highScores.push(score);
+        console.log(score);
+
+        localStorage.setItem("highScores", JSON.stringify(highScores));
+        
+        showHighScores(highScores);
+    }
+    else {
+        alert("You must enter your initials to record a score.");
+    }
+};
+
+function startOver() {
+    hideAnswer();
+
+    var element1 = document.getElementById("start");
+    element1.classList.remove("hide");
+
+    var element2 = document.getElementById("QuizQ");
+    element2.classList.add("hide");
+
+    var element1 = document.getElementById("highScores-page");
+    element1.classList.add("hide");
+};
+
+var clearHighScores = function() {
+    highScores = [];
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+
+    //empty highscores
 };
 
 //set timer
@@ -139,8 +237,7 @@ var showQuestions = function() {
         //get question from quiz object
         var question = qAndA[questionNumber].question;
         document.getElementById("question").innerHTML = question;
-        var element1 = document.getElementById("answer");
-        element1.classList.add("hide");
+        hideAnswer();
         
         var choices = qAndA[questionNumber].choice;
 
@@ -162,10 +259,11 @@ var showQuestions = function() {
         element.classList.remove("hide");
 
         //show the last answer
-        var element1 = document.getElementById("answer");
-        element1.classList.remove("hide");
+        var element2 = document.getElementById("answer");
+        element2.classList.add("hide");
 
         //set score
+        let score = secondsLeft;
 
         questionNumber = 0;
     }
@@ -181,6 +279,10 @@ var checkAnswer = function(buttonIndex) {
 
         if (answer === buttonIndex) {
             document.getElementById("answerStatus").innerHTML = "correct";
+        }
+        //if user doesnt click a button, run function again to avoid getting question wrong
+        else if (buttonIndex === undefined) {
+            checkAnswer(buttonIndex);
         }
         else {
             document.getElementById("answerStatus").innerHTML ="wrong";
@@ -199,10 +301,20 @@ var checkAnswer = function(buttonIndex) {
     }
 };
 
+//load high scores
+highscores1 = loadHighScores();
+highScores.push(highscores1);
+
 //button handler
 pageContentEl.addEventListener("click", buttonHandler);
 
 //quiz answers
 answerEl.addEventListener("click", quizButton);
+
+//submit high scores
+submitEl.addEventListener("click", userScore);
+
+//show highscores
+highScoresEl.addEventListener("click", showHighScores);
 
 setTimer();
