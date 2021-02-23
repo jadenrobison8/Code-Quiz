@@ -15,6 +15,10 @@ submitEl = document.querySelector("#playerInitialsButton");
 
 highScoresEl = document.querySelector("#highScoresList");
 
+goBackEl = document.querySelector("#go-back");
+
+clearScoreEl = document.querySelector("#clear-highScores");
+
 //object to contain questions and answers
 var qAndA = [
 
@@ -82,7 +86,7 @@ var buttonHandler = function(event) {
 
 //quiz list button handler
 var quizButton = function(event) {
-    var targetEl = event.target
+    var targetEl = event.target;
     var element;
 
     if (targetEl.matches("#b0")) {
@@ -113,19 +117,18 @@ var hideAnswer = function() {
 };
 
 //get the highscores from memory and load them into an array called highScoreArray
-var loadHighScores = function() {
-    var highScoresArray = localStorage.getItem("highScores");
-    console.log(highScoresArray);
-    if (highScoresArray) //if not undefined
-    {
-      highScores = JSON.parse(highScoresArray);  //make sure there is a highscores object
+function loadHighScores() {
+    var highScoresArray = localStorage.getItem("highScores", JSON.stringify(highScores));
+    if (highScoresArray) {
+        console.log(highScoresArray);
+        highScores = JSON.parse(highScoresArray);  //make sure there is a highscores object
     }
     else {
-      localStorage.setItem("highScores", JSON.stringify(highScores));  //if not make one and store it to local storage
+        localStorage.setItem("highScores", JSON.stringify(highScores));
     }
-};
+}
 
-var showHighScores = function (highScores) {
+var showHighScores = function () {
     var element1 = document.getElementById("header");
     element1.classList.add("hide");
 
@@ -140,17 +143,15 @@ var showHighScores = function (highScores) {
 
     var element1 = document.getElementById("highScores-page");
     element1.classList.remove("hide");
+    
+    document.getElementById("highScoresList").innerHTML = "";
 
-    //console.log(highScores);
-    //loadHighScores();
-    console.log(highScores);
+    //var highScores = localStorage.getItem("highScores");
 
     for(var i = 0; i < highScores.length; i++) {
         var counter = i + 1; 
         var listItemEl = document.createElement("li");
         listItemEl.innerHTML = counter + ". " + highScores[i].initials + " - " + highScores[i].score; 
-        console.log(highScoresEl);
-        console.log(listItemEl);
         highScoresEl.appendChild(listItemEl);
     }
     setTimer();
@@ -171,8 +172,8 @@ var userScore = function() {
         }
 
         highScores.push(score);
+        
         console.log(score);
-
         localStorage.setItem("highScores", JSON.stringify(highScores));
         
         showHighScores(highScores);
@@ -193,6 +194,9 @@ function startOver() {
 
     var element1 = document.getElementById("highScores-page");
     element1.classList.add("hide");
+
+    var element1 = document.getElementById("header");
+    element1.classList.remove("hide");
 };
 
 var clearHighScores = function() {
@@ -243,7 +247,7 @@ var showQuestions = function() {
 
         for (var i = 0; i < choices.length; i++) {
             var counter = i + 1;
-            document.getElementById("b"+i).innerHTML = choices[i]
+            document.getElementById("b"+i).innerHTML = choices[i];
         }
         //onClick="this.disabled=true; this.value='Sending…'";
     }
@@ -301,9 +305,6 @@ var checkAnswer = function(buttonIndex) {
     }
 };
 
-//load high scores
-highscores1 = loadHighScores();
-highScores.push(highscores1);
 
 //button handler
 pageContentEl.addEventListener("click", buttonHandler);
@@ -314,7 +315,13 @@ answerEl.addEventListener("click", quizButton);
 //submit high scores
 submitEl.addEventListener("click", userScore);
 
+loadHighScores();
 //show highscores
 highScoresEl.addEventListener("click", showHighScores);
+
+//go back button
+goBackEl.addEventListener("click", startOver);
+
+clearScoreEl.addEventListener("click", clearHighScores);
 
 setTimer();
