@@ -2,18 +2,68 @@ header {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    font-size: small;
+    font-size: medium;
     font-weight: bold;
+}
+
+a:link {
+    text-decoration: none;
+    color: #4CAF50;
+    font-size: 20px;
+}
+
+.timer {
+    font-size: 20px;
+    color: #4CAF50
 }
 
 main {
     display: flex;
     justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding: 20px;
+    width: 800px;
+    margin: auto;
+}
+
+.start {
+    text-align: center;
 }
 
 button {
-    flex-direction: row;
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    margin: auto
+}
 
+ul {
+    list-style-type: none;
+}
+
+.quiz {
+    align-items: flex-start;
+}
+
+button:hover {
+    background-color: #3e8e41
+}
+
+button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 .hide {

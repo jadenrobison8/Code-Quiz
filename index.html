@@ -10,21 +10,19 @@
 
 <body id="page-content">
     <header id="header">
-        <div>
             <div>
                 <a href="#" id="highScoresLink">View HighScores</a>
             </div>
-            <div>
+            <div class="timer">
                 Timer: <span id="timerValue"></span>
             </div>
-        </div>
     </header>    
     
     <main> 
         <!-- quiz container -->
         <section>
             <!--quiz start page-->
-            <div id="start">
+            <div id="start" class="start">
                 <h1>Coding Quiz Challenge</h1>
                 <p>Try to answer the following code-related questions within the time limit. <br>
                     Keep in mind that incorrect answers will penalize your score/time <br>
@@ -34,11 +32,11 @@
             </div>
 
             <!-- question and answer container -->
-            <div id="QuizQ" class="hide">
+            <div id="QuizQ" class="hide quiz">
                 <!--question h1 element-->
                 <h1 id="question"></h1>
                 <!-- answers <ul> and button elements-->
-                <ul id="answers">
+                <ul id="answers" class="answers">
                     <li><button id="b0"></button></li>
                     <li><button id="b1"></button></li>
                     <li><button id="b2"></button></li>

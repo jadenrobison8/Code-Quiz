@@ -247,7 +247,7 @@ var showQuestions = function() {
 
         for (var i = 0; i < choices.length; i++) {
             var counter = i + 1;
-            document.getElementById("b"+i).innerHTML = choices[i];
+            document.getElementById("b"+i).innerHTML = i+1 + ". " + choices[i];
         }
         //onClick="this.disabled=true; this.value='Sending…'";
     }
